@@ -2,6 +2,7 @@ package com.example.calculated
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
@@ -85,4 +86,20 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+
+        outState.run{
+            putString("KEY", binding.textAnswer.text.toString())
+        }
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        binding.textAnswer.text = savedInstanceState.getString("KEY")
+    }
+
 }
