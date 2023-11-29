@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">calculated</string>
+
+    <string name="about_text">
+        Вы нашли <b>п</b>асхалку\\n
+        Вы большой м<b>о</b>лодец\\n
+        <b>Мо</b>>жно взять с полки пирожок\\n
+        <b>Ги</b>>габайты усилий\\n
+        Я <b>те</b>бя запомнил \\n
+    </string>
+
+    <string name="about_title">О программе</string>
 </resources>

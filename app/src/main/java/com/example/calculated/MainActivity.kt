@@ -1,5 +1,7 @@
 package com.example.calculated
 
+//import AboutActivity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -16,75 +18,52 @@ class MainActivity : AppCompatActivity() {
 
     private var input1 = 0.0
     private var input2 = 0.0
-    private var operation = 0
+    private var exit = 0.0
+
+    enum class Operation( val sign: String, val calculation: (Double, Double) -> Double){
+        Plus("+", {a, b -> a + b}),
+        Minus("-", {a, b -> a - b}),
+        Multiplay("*",{a, b -> a * b}),
+        Division("/", {a, b -> a / b})
+    }
+
+    fun onClick(operation: Operation){
+        input1 = binding.operand1.getText().toString().toDouble()
+        input2 = binding.operand2.getText().toString().toDouble()
+        binding.vizualSign.text = operation.sign
+        exit = operation.calculation(input1,input2)
+        binding.textAnswer.text = exit.toString()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         binding.plusButton.setOnClickListener{view ->
-
-            binding.vizualSign.text = "+"
-
-            operation = 1
+            onClick(Operation.Plus)
         }
 
 
         binding.minusButton.setOnClickListener{view ->
-
-            binding.vizualSign.text = "-"
-
-            operation = 2
+            onClick(Operation.Minus)
         }
 
 
         binding.multiplyButton.setOnClickListener{view ->
-
-            binding.vizualSign.text = "*"
-
-            operation = 3
+            onClick(Operation.Multiplay)
         }
 
 
         binding.divisionButton.setOnClickListener{view ->
-
-            binding.vizualSign.text = "/"
-
-            operation = 4
+            onClick(Operation.Division)
         }
 
-        binding.buttonSolve.setOnClickListener { view ->
-
-            input1 = binding.operand1.getText().toString().toDouble()
-            input2 = binding.operand2.getText().toString().toDouble()
-
-            when (operation) {
-                0 -> {
-                    input1 = 0.0
-                }
-
-                1 -> {
-                    input1 = input1 + input2
-                }
-
-                2 -> {
-                    input1 = input1 - input2
-                }
-
-                3 -> {
-                    input1 = input1 * input2
-                }
-
-                4 -> {
-                    input1 = input1 / input2
-                }
-            }
-
-            binding.textAnswer.text = input1.toString()
-
-
-        }
+        //binding.button.setOnClickListener {
+           // val intent = Intent(this@MainActivity, AboutActivity::class.java)
+          //  startActivity(intent)
+        //}
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
